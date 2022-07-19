@@ -1,12 +1,17 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const { response } = require("express");
 
 const app = express();
+app.use("view engine", "ejs");
 
 app.get("/", function(req, res){
   let date = new Date();
-  res.send(date.getDate());
-
+  if(date.getDay() === 2) {
+    res.sendFile(__dirname + "/index.html");
+  } else {
+    res.send("Its a weedend!");  
+  }
 });
 
 app.listen(3000, function(){
