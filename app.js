@@ -7,17 +7,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
-let items = [];
-let workListItems = [];
+const items = [];
+const workListItems = [];
 
 app.get("/", function(req, res){
   
-  let formatDate = date();
+  const formatDate = date.getDate();
   res.render("list", {listTitle: formatDate, newListItems: items});
 });
 
 app.post("/", (req, res) => {
-    let item = req.body.newItem;
+    const item = req.body.newItem;
     if(req.body.list === "Work") {
         workListItems.push(item);
         res.redirect("/work");
@@ -32,7 +32,7 @@ app.get("/work", (req, res) => {
 });
 
 app.post("/work", (req, res) => {
-    let item = req.body.newItem;
+    const item = req.body.newItem;
     workListItems.push(item);
     res.redirect("/work");
 });
