@@ -7,6 +7,7 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 
 let items = [];
+let workListItems = [];
 app.get("/", function(req, res){
   let today = new Date();
   let options = {
@@ -16,13 +17,28 @@ app.get("/", function(req, res){
   }
   let formatDate = today.toLocaleDateString("en-US", options);
   
-  res.render("list", {weekday: formatDate, newListItems: items});
+  res.render("list", {listTitle: formatDate, newListItems: items});
 });
 
 app.post("/", (req, res) => {
     let item = req.body.newItem;
-    items.push(item);
-    res.redirect("/");
+    if(req.body.list === "Work") {
+        workListItems.push(item);
+        res.redirect("/work");
+    } else {
+        items.push(item);
+        res.redirect("/");
+    }
+});
+
+app.get("/work", (req, res) => {
+    res.render("list", {listTitle: "Work List", newListItems:workListItems});
+});
+
+app.post("/work", (req, res) => {
+    let item = req.body.newItem;
+    workListItems.push(item);
+    res.redirect("/work");
 });
 
 app.listen(3000, function(){
