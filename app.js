@@ -6,6 +6,12 @@ app.set("view engine", "ejs");
 
 app.get("/", function(req, res){
   let today = new Date();
+  let options = {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  }
+  let formatDate = today.toLocaleDateString("en-US", options);
   let currentDay = today.getDay();
   let day = "";
   switch(currentDay) {
@@ -33,7 +39,7 @@ app.get("/", function(req, res){
     default:
         console.log("Invalid date");
   }
-  res.render("list", {weekday: day});
+  res.render("list", {weekday: formatDate});
 });
 
 app.listen(3000, function(){
