@@ -9,6 +9,14 @@
 <body>
     <h1>To-Do-List</h1>
     <h2> <%= weekday %> </h2>
-    
+    <ul>
+        <% for(let i=0; i<newListItems.length; i++) { %> 
+            <li><%= newListItems[i] %> </li>
+        <% } %> 
+    </ul>
+    <form action="/" method="post">
+        <input type="text" name="newItem" placeholder = "New Item">
+        <button type="submit" name="button">Add</button>
+    </form>
 </body>
 </html>
