@@ -83,14 +83,14 @@ app.post("/", function (req, res) {
 
 app.post("/delete", function (req, res) {
 	const itemId = req.body.checkbox;
-  const listName = req.body.itemList;
+  const listName = req.body.listName;
 
   if(listName === "Today") {
     Item.findByIdAndRemove(itemId, function (err, item) {
       res.redirect("/");
     });
   } else {
-	List.findOneAndUpdate({id: itemId}, {$pull: {items: {_id: itemId}}}, function(err, list) {
+	List.findOneAndUpdate({name: listName}, {$pull: {items: {_id: itemId}}}, function(err, list) {
 		res.redirect(`/${listName}`);
 	});
   }
