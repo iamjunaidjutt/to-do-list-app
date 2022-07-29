@@ -10,7 +10,7 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-const urlDB = "mongodb+srv://admin-junaid:KZ0yj8yXxmmY81bi@cluster0.afaucgl.mongodb.net/toDoListDB?retryWrites=true&w=majority";
+const urlDB = process.env.MONGODB_URL;
 
 mongoose.connect(urlDB, {
 	useNewUrlParser: true, 
